@@ -130,6 +130,7 @@ const (
 	WrongContinuationKeyErrorCode ErrorCode = "WRONG_CONTINUATION_KEY"
 
 	// WrongCredentialsProvidedErrorCode wrong credentials provided.
+	// nolint:gosec
 	WrongCredentialsProvidedErrorCode ErrorCode = "WRONG_CREDENTIALS_PROVIDED"
 
 	// WrongDateIntervalErrorCode date_from should be less than or equal date_to.

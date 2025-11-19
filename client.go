@@ -136,19 +136,19 @@ func WithPSUGeoLocationHeader(geoLocation string) Option {
 
 // NewClientWithKeyFile creates a new Enable Banking API client with the provided application ID, private key file path, and options.
 // If no options are provided, the client will use default settings of [ClientDefaultAPIBaseURL], [ClientDefaultTokenTTL], and [ClientDefaultTokenTTLExtraTime].
-func NewClientWithKeyFile(applicationId, privateKeyPath string, options ...Option) (*APIClient, error) {
+func NewClientWithKeyFile(applicationID, privateKeyPath string, options ...Option) (*APIClient, error) {
 	privateKey, err := loadPrivateKeyFromFile(privateKeyPath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to load private key from file: %w", err)
 	}
 
-	return NewClient(applicationId, privateKey, options...)
+	return NewClient(applicationID, privateKey, options...)
 }
 
 // NewClient creates a new Enable Banking API client with the provided application ID, private key, and options.
 // If no options are provided, the client will use default settings of [ClientDefaultAPIBaseURL], [ClientDefaultTokenTTL], and [ClientDefaultTokenTTLExtraTime].
-func NewClient(applicationId string, privateKey *rsa.PrivateKey, options ...Option) (*APIClient, error) {
-	if applicationId == "" {
+func NewClient(applicationID string, privateKey *rsa.PrivateKey, options ...Option) (*APIClient, error) {
+	if applicationID == "" {
 		return nil, errors.New("application ID cannot be empty")
 	}
 
@@ -160,7 +160,7 @@ func NewClient(applicationId string, privateKey *rsa.PrivateKey, options ...Opti
 		baseURL:    ClientDefaultAPIBaseURL,
 		httpClient: http.DefaultClient,
 		headers:    NewHeaders(),
-		authorizer: newAuthorizer(applicationId, privateKey, ClientDefaultTokenTTL, ClientDefaultTokenTTLExtraTime),
+		authorizer: newAuthorizer(applicationID, privateKey, ClientDefaultTokenTTL, ClientDefaultTokenTTLExtraTime),
 	}
 
 	c.httpClient.Timeout = 30 * time.Second

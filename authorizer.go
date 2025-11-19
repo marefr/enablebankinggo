@@ -9,7 +9,7 @@ import (
 )
 
 type authorizer struct {
-	applicationId string
+	applicationID string
 	privateKey    *rsa.PrivateKey
 	tokenTTL      int64
 	extraTTL      time.Duration
@@ -18,9 +18,9 @@ type authorizer struct {
 	expiresAt     time.Time
 }
 
-func newAuthorizer(applicationId string, privateKey *rsa.PrivateKey, tokenTTL int, extraTTL time.Duration) *authorizer {
+func newAuthorizer(applicationID string, privateKey *rsa.PrivateKey, tokenTTL int, extraTTL time.Duration) *authorizer {
 	return &authorizer{
-		applicationId: applicationId,
+		applicationID: applicationID,
 		privateKey:    privateKey,
 		tokenTTL:      int64(tokenTTL),
 		extraTTL:      extraTTL,
@@ -55,7 +55,7 @@ func (a *authorizer) AuthorizeRequest(req *http.Request) error {
 }
 
 func (a *authorizer) generateJWT() error {
-	header, err := getJwtHeader(a.applicationId)
+	header, err := getJwtHeader(a.applicationID)
 	if err != nil {
 		return err
 	}

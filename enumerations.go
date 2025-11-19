@@ -85,10 +85,10 @@ func BalanceTypeDescriptions() map[BalanceType]string {
 type CreditDebitIndicator string
 
 const (
-	// CreditCreditDebitIndicator Credit type transaction
+	// CreditCreditDebitIndicator Credit type transaction.
 	CreditCreditDebitIndicator CreditDebitIndicator = "CRDT"
 
-	// DebitCreditDebitIndicator Debit type transaction
+	// DebitCreditDebitIndicator Debit type transaction.
 	DebitCreditDebitIndicator CreditDebitIndicator = "DBIT"
 )
 
@@ -175,7 +175,7 @@ func PSUTypeDescriptions() map[PSUType]string {
 type RateType string
 
 const (
-	// AGRDRateType Exchange rate applied is the rate agreed between the parties
+	// AGRDRateType Exchange rate applied is the rate agreed between the parties.
 	AGRDRateType RateType = "AGRD"
 
 	// SALERateType Exchange rate applied is the market rate at the time of the sale.
@@ -560,8 +560,8 @@ const (
 	// NorwegianKIDScheme indicates Norwegian KID (OCR).
 	NorwegianKIDScheme ReferenceNumberScheme = "NORF"
 
-	// SEPADirectDebitMandateIdScheme indicates SEPA Direct Debit Mandate ID.
-	SEPADirectDebitMandateIdScheme ReferenceNumberScheme = "SDDM"
+	// SEPADirectDebitMandateIDScheme indicates SEPA Direct Debit Mandate ID.
+	SEPADirectDebitMandateIDScheme ReferenceNumberScheme = "SDDM"
 
 	// SwedishBankgiroOCRScheme indicates Swedish Bankgiro OCR.
 	SwedishBankgiroOCRScheme ReferenceNumberScheme = "SEBG"
@@ -614,25 +614,25 @@ const (
 type TransactionStatus string
 
 const (
-	// AccountedTransactionStatus accounted transaction (ISO20022 Closing Booked)
+	// AccountedTransactionStatus accounted transaction (ISO20022 Closing Booked).
 	AccountedTransactionStatus TransactionStatus = "BOOK"
 
-	// CancelledTransactionStatus cancelled transaction
+	// CancelledTransactionStatus cancelled transaction.
 	CancelledTransactionStatus TransactionStatus = "CNCL"
 
 	// HoldTransactionStatus account hold.
 	HoldTransactionStatus TransactionStatus = "HOLD"
 
-	// OtherTransactionStatus transaction with unknown status or not fitting the other options
+	// OtherTransactionStatus transaction with unknown status or not fitting the other options.
 	OtherTransactionStatus TransactionStatus = "OTHR"
 
-	// InstantBalanceTransactionStatus instant Balance Transaction (ISO20022 Expected)
+	// InstantBalanceTransactionStatus instant Balance Transaction (ISO20022 Expected).
 	InstantBalanceTransactionStatus TransactionStatus = "PDNG"
 
-	// RejectedTransactionStatus rejected transaction
+	// RejectedTransactionStatus rejected transaction.
 	RejectedTransactionStatus TransactionStatus = "RJCT"
 
-	// ScheduledTransactionStatus scheduled transaction
+	// ScheduledTransactionStatus scheduled transaction.
 	ScheduledTransactionStatus TransactionStatus = "SCHD"
 )
 

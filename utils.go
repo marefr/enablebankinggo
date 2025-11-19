@@ -56,7 +56,7 @@ func sign(privateKey *rsa.PrivateKey, data []byte) (string, error) {
 	return encodedSignature, nil
 }
 
-func getJwtHeader(appId string) (string, error) {
+func getJwtHeader(applicationID string) (string, error) {
 	encodedHeader, err := json.Marshal(struct {
 		Alg string `json:"alg"`
 		Typ string `json:"typ"`
@@ -64,7 +64,7 @@ func getJwtHeader(appId string) (string, error) {
 	}{
 		Alg: "RS256",
 		Typ: "JWT",
-		Kid: appId,
+		Kid: applicationID,
 	})
 	if err != nil {
 		return "", err

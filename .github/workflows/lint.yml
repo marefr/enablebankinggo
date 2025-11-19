@@ -1,0 +1,37 @@
+name: golangci-lint
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  golangci:
+    permissions:
+      contents: read  # for actions/checkout to fetch code
+      pull-requests: read  # for golangci/golangci-lint-action to fetch pull requests
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+      - name: Install Go
+        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
+        with:
+          go-version: 1.24.x
+      - name: Install golangci-lint
+        uses: golangci/golangci-lint-action@0a35821d5c230e903fcfe077583637dea1b27b47 # v9.0.0
+        with:
+          # golangci-lint needs to be run separately for every Go module, and
+          # its GitHub Action doesn't provide any way to do that. Have it fetch
+          # the golangci-lint binary, trick it into not running by sending only
+          # `--help`, then run the full set of lints below. DO NOT run separate
+          # modules as separate golangci-lint-action steps. Its post run caching
+          # can be extremely slow, and that's amplified in a very painful way if
+          # it needs to be run multiple times.
+          args: --help
+          version: v2.6.2
+      - name: Run lint
+        run: make lint
