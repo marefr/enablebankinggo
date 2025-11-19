@@ -1,11 +1,13 @@
 # Enable Banking Go API Client Library
 
-A Go client library for the Enable Banking API. Supports operations related to account information service (AIS) and retrieval of account data and transactions.
+A Go client library for the Enable Banking API.
 
 [![License](https://img.shields.io/github/license/marefr/enablebankinggo)](LICENSE)
 [![Go.dev](https://pkg.go.dev/badge/github.com/marefr/enablebankinggo)](https://pkg.go.dev/github.com/marefr/enablebankinggo?tab=doc)
 [![Go Report Card](https://goreportcard.com/badge/github.com/marefr/enablebankinggo)](https://goreportcard.com/report/github.com/marefr/enablebankinggo)
 [![CI](https://github.com/marefr/enablebankinggo/actions/workflows/go.yml/badge.svg)](https://github.com/marefr/enablebankinggo/actions/workflows/go.yml)
+
+Supports operations related to account information service (AIS) and retrieval of account data and transactions.
 
 Note: Operations related to payment initiation service (PIS) and payments are currently not supported.
 
