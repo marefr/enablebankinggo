@@ -58,8 +58,7 @@ func main() {
 This project is an independent work and has no affiliation, association, authorization, or endorsement from Enable Banking Oy (https://enablebanking.com/) or any of its subsidiaries.
 All trademarks, service marks, and company names mentioned herein are the property of their respective owners.
 
-The Enable Banking Control Panel API is not offically documented, besides https://github.com/enablebanking/enablebanking-cli, and therefore there's no guarantees this library works as expected/intended.
-
+The Enable Banking Control Panel API is not offically documented, besides https://github.com/enablebanking/enablebanking-cli, and therefore there's no guarantees the `enablebankingcp` package works/behaves as expected/intended.
 
 ## License
 
