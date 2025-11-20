@@ -27,32 +27,32 @@ const (
 	ClientDefaultTokenTTLExtraTime = 10 * time.Second
 )
 
-// Option represents a configuration option for the client.
-type Option func(*APIClient)
+// ClientOption represents a configuration option for the client.
+type ClientOption func(*APIClient)
 
 // WithBaseURL sets a custom base URL for the Enable Banking API client.
-func WithBaseURL(baseURL string) Option {
+func WithBaseURL(baseURL string) ClientOption {
 	return func(c *APIClient) {
 		c.baseURL = strings.TrimSuffix(baseURL, "/")
 	}
 }
 
 // WithHTTPClient sets a custom HTTP client for the Enable Banking API client.
-func WithHTTPClient(httpClient *http.Client) Option {
+func WithHTTPClient(httpClient *http.Client) ClientOption {
 	return func(c *APIClient) {
 		c.httpClient = httpClient
 	}
 }
 
 // WithHTTPTransport sets a custom HTTP transport for the client.
-func WithHTTPTransport(transport http.RoundTripper) Option {
+func WithHTTPTransport(transport http.RoundTripper) ClientOption {
 	return func(c *APIClient) {
 		c.httpClient.Transport = transport
 	}
 }
 
 // WithTokenTTL sets a custom token time-to-live (TTL) in seconds. Default is [ClientDefaultTokenTTL] seconds. Maximum is [ClientMaximumTokenTTL] seconds.
-func WithTokenTTL(ttl int) Option {
+func WithTokenTTL(ttl int) ClientOption {
 	if ttl <= 0 || ttl > ClientMaximumTokenTTL {
 		panic("token TTL must be between 1 and 86400 seconds")
 	}
@@ -63,14 +63,14 @@ func WithTokenTTL(ttl int) Option {
 }
 
 // WithTokenTTLExtraTime sets a custom extra time duration to account for clock skew when validating token expiration. Default is [ClientDefaultTokenTTLExtraTime].
-func WithTokenTTLExtraTime(extraTime time.Duration) Option {
+func WithTokenTTLExtraTime(extraTime time.Duration) ClientOption {
 	return func(c *APIClient) {
 		c.authorizer.extraTTL = extraTime
 	}
 }
 
 // WithHeaders sets additional headers to include in every request made by the client.
-func WithHeaders(headers Header) Option {
+func WithHeaders(headers Header) ClientOption {
 	return func(c *APIClient) {
 		for k, v := range headers {
 			c.headers.Set(k, v)
@@ -79,56 +79,56 @@ func WithHeaders(headers Header) Option {
 }
 
 // WithPSUIPAddressHeader sets the [PSUIPAddressHeaderKey] header to include in every request made by the client.
-func WithPSUIPAddressHeader(ipAddress string) Option {
+func WithPSUIPAddressHeader(ipAddress string) ClientOption {
 	return func(c *APIClient) {
 		c.headers.Set(PSUIPAddressHeaderKey, ipAddress)
 	}
 }
 
 // WithPSUUserAgentHeader sets the [PSUUserAgentHeaderKey] header to include in every request made by the client.
-func WithPSUUserAgentHeader(userAgent string) Option {
+func WithPSUUserAgentHeader(userAgent string) ClientOption {
 	return func(c *APIClient) {
 		c.headers.Set(PSUUserAgentHeaderKey, userAgent)
 	}
 }
 
 // WithPSURefererHeader sets the [PSURefererHeaderKey] header to include in every request made by the client.
-func WithPSURefererHeader(referer string) Option {
+func WithPSURefererHeader(referer string) ClientOption {
 	return func(c *APIClient) {
 		c.headers.Set(PSURefererHeaderKey, referer)
 	}
 }
 
 // WithPSUAcceptHeader sets the [PSUAcceptHeaderKey] header to include in every request made by the client.
-func WithPSUAcceptHeader(accept string) Option {
+func WithPSUAcceptHeader(accept string) ClientOption {
 	return func(c *APIClient) {
 		c.headers.Set(PSUAcceptHeaderKey, accept)
 	}
 }
 
 // WithPSUAcceptCharset sets the [PSUAcceptCharsetHeaderKey] header to include in every request made by the client.
-func WithPSUAcceptCharset(acceptCharset string) Option {
+func WithPSUAcceptCharset(acceptCharset string) ClientOption {
 	return func(c *APIClient) {
 		c.headers.Set(PSUAcceptCharsetHeaderKey, acceptCharset)
 	}
 }
 
 // WithPSUAcceptEncoding sets the [PSUAcceptEncodingHeaderKey] header to include in every request made by the client.
-func WithPSUAcceptEncoding(acceptEncoding string) Option {
+func WithPSUAcceptEncoding(acceptEncoding string) ClientOption {
 	return func(c *APIClient) {
 		c.headers.Set(PSUAcceptEncodingHeaderKey, acceptEncoding)
 	}
 }
 
 // WithPSUAcceptLanguage sets the [PSUAcceptLanguageHeaderKey] header to include in every request made by the client.
-func WithPSUAcceptLanguage(acceptLanguage string) Option {
+func WithPSUAcceptLanguage(acceptLanguage string) ClientOption {
 	return func(c *APIClient) {
 		c.headers.Set(PSUAcceptLanguageHeaderKey, acceptLanguage)
 	}
 }
 
 // WithPSUGeoLocationHeader sets the [PSUGeoLocationHeaderKey] header to include in every request made by the client.
-func WithPSUGeoLocationHeader(geoLocation string) Option {
+func WithPSUGeoLocationHeader(geoLocation string) ClientOption {
 	return func(c *APIClient) {
 		c.headers.Set(PSUGeoLocationHeaderKey, geoLocation)
 	}
@@ -136,7 +136,7 @@ func WithPSUGeoLocationHeader(geoLocation string) Option {
 
 // NewClientWithKeyFile creates a new Enable Banking API client with the provided application ID, private key file path, and options.
 // If no options are provided, the client will use default settings of [ClientDefaultAPIBaseURL], [ClientDefaultTokenTTL], and [ClientDefaultTokenTTLExtraTime].
-func NewClientWithKeyFile(applicationID, privateKeyPath string, options ...Option) (*APIClient, error) {
+func NewClientWithKeyFile(applicationID, privateKeyPath string, options ...ClientOption) (*APIClient, error) {
 	privateKey, err := loadPrivateKeyFromFile(privateKeyPath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to load private key from file: %w", err)
@@ -147,7 +147,7 @@ func NewClientWithKeyFile(applicationID, privateKeyPath string, options ...Optio
 
 // NewClient creates a new Enable Banking API client with the provided application ID, private key, and options.
 // If no options are provided, the client will use default settings of [ClientDefaultAPIBaseURL], [ClientDefaultTokenTTL], and [ClientDefaultTokenTTLExtraTime].
-func NewClient(applicationID string, privateKey *rsa.PrivateKey, options ...Option) (*APIClient, error) {
+func NewClient(applicationID string, privateKey *rsa.PrivateKey, options ...ClientOption) (*APIClient, error) {
 	if applicationID == "" {
 		return nil, errors.New("application ID cannot be empty")
 	}
