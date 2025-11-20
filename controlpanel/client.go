@@ -27,6 +27,13 @@ type Token struct {
 	ExpiresIn    int64  `json:"expires_in"`
 }
 
+// WithBaseURL sets a custom base URL for the Enable Banking API client.
+func WithBaseURL(baseURL string) ClientOption {
+	return func(c *APIClient) {
+		c.baseURL = strings.TrimSuffix(baseURL, "/")
+	}
+}
+
 // WithHTTPClient sets a custom HTTP client for the Enable Banking API client.
 func WithHTTPClient(httpClient *http.Client) ClientOption {
 	return func(c *APIClient) {
@@ -65,6 +72,7 @@ type APIClient struct {
 }
 
 // NewClient creates a new Enable Banking control panel API client with default settings.
+// If no options are provided, the client will use default settings of [ClientDefaultAPIBaseURL].
 func NewClient(options ...ClientOption) *APIClient {
 	client := &APIClient{
 		baseURL:    ClientDefaultAPIBaseURL,
@@ -137,9 +145,6 @@ func (c *APIClient) sendAuthenticatedRequest(req *http.Request, resp any) error 
 
 		req.Body = io.NopCloser(bytes.NewReader(bodyBytes))
 	}
-
-	// Fixme: Multiple assignments to req.Body
-	req.Body = io.NopCloser(bytes.NewReader(bodyBytes))
 
 	err := c.sendRequestInternal(req, resp)
 	if err != nil {
