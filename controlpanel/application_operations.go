@@ -35,6 +35,12 @@ type RegisterApplicationRequest struct {
 	CertificateContent string `json:"certificate"`
 }
 
+// RegisterApplicationResponse represents the response from registering a new application.
+type RegisterApplicationResponse struct {
+	// ApplicationID is the unique identifier of the registered application.
+	ApplicationID string `json:"app_id"`
+}
+
 // LinkApplicationAccountRequest represents the request payload for linking an application account.
 type LinkApplicationAccountRequest struct {
 	Country string `json:"country"`
@@ -83,19 +89,19 @@ func (c *APIClient) GetApplication(ctx context.Context, applicationID string) (*
 }
 
 // RegisterApplication registers a new application.
-func (c *APIClient) RegisterApplication(ctx context.Context, req *RegisterApplicationRequest) (string, error) {
+func (c *APIClient) RegisterApplication(ctx context.Context, req *RegisterApplicationRequest) (*RegisterApplicationResponse, error) {
 	httpReq, err := c.newRequest(ctx, http.MethodPost, "/applications", req)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	var app Application
-	err = c.sendAuthenticatedRequest(httpReq, &app)
+	var resp RegisterApplicationResponse
+	err = c.sendAuthenticatedRequest(httpReq, &resp)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return "", nil
+	return &resp, nil
 }
 
 func (c *APIClient) DeleteApplication(ctx context.Context, applicationID string) error {
