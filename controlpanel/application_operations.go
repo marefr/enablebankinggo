@@ -104,6 +104,7 @@ func (c *APIClient) RegisterApplication(ctx context.Context, req *RegisterApplic
 	return &resp, nil
 }
 
+// DeleteApplication deletes an application by ID.
 func (c *APIClient) DeleteApplication(ctx context.Context, applicationID string) error {
 	req := struct {
 		ApplicationID string `json:"appId"`
