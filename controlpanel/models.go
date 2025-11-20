@@ -1,4 +1,4 @@
-package enablebankingcp
+package controlpanel
 
 import (
 	"time"

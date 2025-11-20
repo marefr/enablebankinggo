@@ -9,7 +9,7 @@ A Go library for the Enable Banking API's.
 
 The following Go packages are included:
 - enablebankinggo: Provides a library for the Enable Banking API, that supports  authorizing and retrieving account data and transactions.
-- enablebankingcp: Provides a library for the Enable Banking Control Panel API, that supports authorizing and managing API applications programmatically.
+- enablebankinggo/controlpanel: Provides a library for the Enable Banking Control Panel API, that supports authorizing and managing API applications programmatically.
 
 Note: Operations related to payment initiation service (PIS) and payments are not supported.
 
@@ -58,7 +58,7 @@ func main() {
 This project is an independent work and has no affiliation, association, authorization, or endorsement from Enable Banking Oy (https://enablebanking.com/) or any of its subsidiaries.
 All trademarks, service marks, and company names mentioned herein are the property of their respective owners.
 
-The Enable Banking Control Panel API is not offically documented, besides https://github.com/enablebanking/enablebanking-cli, and therefore there's no guarantees the `enablebankingcp` package works/behaves as expected/intended.
+The Enable Banking Control Panel API is not offically documented, besides https://github.com/enablebanking/enablebanking-cli, and therefore there's no guarantees the `controlpanel` package works/behaves as expected/intended.
 
 ## License
 
