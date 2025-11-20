@@ -88,10 +88,6 @@ func (c *APIClient) RelyingpartyGetOOBConfirmationCode(ctx context.Context, req 
 		return nil, err
 	}
 
-	queries := reqHTTP.URL.Query()
-	queries.Add("key", "AIzaSyBn8fvjRYQKslskRaO3cblUjmcyl5b9o-c")
-	reqHTTP.URL.RawQuery = queries.Encode()
-
 	var resp GetOOBConfirmationCodeResponse
 	err = c.sendUnauthenticatedRequest(reqHTTP, &resp)
 	if err != nil {
