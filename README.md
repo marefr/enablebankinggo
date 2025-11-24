@@ -34,16 +34,26 @@ func main() {
 
   appResp, err := client.GetApplication(context.Background())
   if err != nil {
+    if errResp, ok := enablebankinggo.IsErrorResponse(err); ok {
+      b, err := json.MarshalIndent(errResp, "", "  ")
+      if err != nil {
+        log.Fatalf("failed to marshal error response: %v", err)
+      }
+      _, err = out.Write(b)
+      if err != nil {
+        log.Fatalf("failed to write error response output: %v", err)
+      }
+    }
     log.Fatalf("failed to get application: %v", err)
   }
 
   b, err := json.MarshalIndent(appResp, "", "  ")
   if err != nil {
-    log.Fatalf("failed to marshal value: %v", err)
+    log.Fatalf("failed to marshal response: %v", err)
   }
   _, err = out.Write(b)
   if err != nil {
-    log.Fatalf("failed to write output: %v", err)
+    log.Fatalf("failed to write response output: %v", err)
   }
 }
 ```
